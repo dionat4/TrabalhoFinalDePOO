@@ -10,36 +10,39 @@
 
 using namespace std;
 
-// essa função deve receber um vetor de ponteiros para Time, o tamanho do vetor, e os nomes dos times que já foram inscritos
-// essa função deve imprimir os nomes dos times que ainda não foram inscritos no Campeonato
-
-void substituirTime(Time *time[], int qtdTimes, string nomeTime, string nomeTimeSubstituto, Jogador* jogadores[]) {
-
+//Essa função substitui um time por outro 
+void substituirTime(Time *Campeonato[], int qtdTimes, string TimeSusbtituido, string TimeSubstituto, Jogador* jogadores[]) {
     int index;
-    for (int i = 0; i < qtdTimes; i++) {
-        if (time[i]->getNome() == nomeTime) {
+     
+    for (int i = 0; i < qtdTimes; i++) { //Guarda a posição do time que irá ser substituido
+        if (Campeonato[i]->getNome() == TimeSusbtituido) {
             index = i;
             break; 
         }
     }
-    time[index] = new Time(nomeTimeSubstituto);
-    time[index] -> insJogador(jogadores);
+
+    //Inscreve o time substituto na mesma posição do time que irá ser substituído graças o valor da posição que foi guardada na variável index
+    Campeonato[index] = new Time(TimeSubstituto);
+    Campeonato[index] -> insJogador(jogadores);
     cout << endl;
-    cout << "O " << nomeTimeSubstituto << " esta pronto para jogar!!" << endl;
-    cout << "O " << nomeTime << " foi removido" << endl;
+    cout << "O " << TimeSubstituto << " esta pronto para jogar!!" << endl;
+    cout << "O " << TimeSusbtituido << " foi removido" << endl;
 }
 
+//Essa função retorna um inteiro que informa se o jogador existe (1) ou não (0) 
 int procuraJogador(Time* Campeonato[], int tamanho,  string nome){
     int cont = 0;
-    for(int i = 0; i < tamanho; i++){
-        if(Campeonato[i] -> getJogador1(nome) == true){
-            cont++;
+
+    for(int i = 0; i < tamanho; i++){//Percorre todo o vetor Campeonato do tipo Time(Classe) chamando a função getJogador1 que foi criada na classe Time
+        if(Campeonato[i] -> getJogador1(nome) == true){//Verifica nome do jogador está em algum time que foi isncrito no campeonato
+            cont++; 
         }
     }
-    return cont; 
+    return cont; //se tiver a função retorna 1 se naão retorna 0
 }
 
-void inscreveTime(Time *Campeonato[], int tamanho, string nome, Jogador* jogador[]){ //Essa função inscreve os times no campeonato 
+//Essa função inscreve um time no campeonato 
+void inscreveTime(Time *Campeonato[], int tamanho, string nome, Jogador* jogador[]){ 
     Campeonato[tamanho] = new Time(nome);
     Campeonato[tamanho] -> insJogador(jogador);
     system("cls");
@@ -47,7 +50,8 @@ void inscreveTime(Time *Campeonato[], int tamanho, string nome, Jogador* jogador
     cout << "O Time " << nome << " esta pronto para jogar!!" << endl;
 }
 
-void mostraTime(Time* Campeonato[], int tamanho){ // Essa função mostra os times inscritos no campeonato
+//Essa função mostra os times inscritos no campeonato 
+void mostraTime(Time* Campeonato[], int tamanho){ 
     for(int i = 0; i < tamanho; i++){
         cout << "- " << Campeonato[i]->getNome() << endl;
     }
@@ -123,6 +127,7 @@ int main() {
     int tamanho = 0;
 
     do{
+        //Menu principal 
         cout << endl;
         cout << "=================================================" << endl;
         cout << "|         SEJA BEM-VINDO AO SISTEMA             |" << endl;
