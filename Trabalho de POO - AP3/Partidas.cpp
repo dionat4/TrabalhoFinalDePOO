@@ -44,3 +44,7 @@ string Partidas::getPlacar() {
     result << timeCasa->getNome() << " " << placarCasa << " X " << placarVisitante << " " << timeVisitante->getNome();
     return result.str();
 }
+
+string Partidas::Data(){
+    return toStringPrint();
+}

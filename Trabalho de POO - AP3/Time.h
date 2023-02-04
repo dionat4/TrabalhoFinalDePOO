@@ -2,21 +2,14 @@
 #define TIME_H
 #include <iostream>
 #include "Jogador.h"
-#include "Date.h"
-#include <vector>
-class Time: public Jogador { // rever essas parte da heranças, dúvidas no UML
+
+class Time: public Jogador {
 private:
     std::string Nome;
-    Jogador* Jogadores[8];
-    /**
-     * os metodos são incializados com zero e aumentam conforme o resultado
-    */
+    Jogador* Jogadores[5];
     int Vitorias = 0;
     int Derrotas = 0;
     int Empates = 0; 
-    vector <int> dia;
-    vector <int> mes;
-    vector <int> ano;
 public:
     Time(std::string Nome);
     Time() = default;
@@ -35,7 +28,7 @@ public:
     void somaDerrotas();
     void somaEmpates();
 
-    void insJogador(Jogador *[8]);
+    void insJogador(Jogador *[5]);
 
     Jogador* getJogador(string nome);
     bool getJogador1(string nome);

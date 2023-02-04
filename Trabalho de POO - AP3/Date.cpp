@@ -11,6 +11,18 @@ Date::Date(int Dia, int Mes, int Ano) {
 }
 string Date::toStringPrint() {
     stringstream ss;
-    ss << Dia << " de " << Mes << " de " << Ano << endl;
+    ss << getDia() << " do " << getMes() << " de " << getAno() << endl;
     return ss.str();
+}
+
+int Date::getDia(){
+    return Dia;
+}
+
+int Date::getMes(){
+    return Mes;
+}
+
+int Date::getAno(){
+    return Ano;
 }

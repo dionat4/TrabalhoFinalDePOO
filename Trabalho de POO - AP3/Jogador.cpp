@@ -14,11 +14,6 @@ Jogador::Jogador(string nomeJogador, int Idade, int Habilidade, int Gols, int Ca
 string Jogador::getnomeJogador() {
     return nomeJogador;
 }
-/**
- * irá retornar uma inteiro de 0 a 100 com a habilidade daquele jogador
- * cada subclasse deverá subrescrever o método de forma a calcular a habilidade de acordo com seus proprios
- * atributos.
-*/
 int Jogador::getHabilidade() {
     return Habilidade;
 }

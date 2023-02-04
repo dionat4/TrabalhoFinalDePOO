@@ -1,14 +1,18 @@
 #include <iostream>
+#include <fstream>
+#include "Date.h"
 #include "jogadorGoleiro.h"
 #include "jogadorPivo.h"
 #include "jogadorFixo.h"
 #include "Partidas.h"
 #include "Time.h"
-#include "jogadorReservaGoleiro.h"
+/*#include "jogadorReservaGoleiro.h"
 #include "jogadorReservaPivo.h"
-#include "jogadorReservaFixo.h"
+#include "jogadorReservaFixo.h"*/
 
 using namespace std;
+
+//VETOR TIMESFORA ESTA ACUMULANDO OS TIMES 
 
 //Essa função substitui um time por outro 
 void substituirTime(Time *Campeonato[], int qtdTimes, string TimeSusbtituido, string TimeSubstituto, Jogador* jogadores[]) {
@@ -20,7 +24,6 @@ void substituirTime(Time *Campeonato[], int qtdTimes, string TimeSusbtituido, st
             break; 
         }
     }
-
     //Inscreve o time substituto na mesma posição do time que irá ser substituído graças o valor da posição que foi guardada na variável index
     Campeonato[index] = new Time(TimeSubstituto);
     Campeonato[index] -> insJogador(jogadores);
@@ -58,6 +61,25 @@ void mostraTime(Time* Campeonato[], int tamanho){
     cout << endl;
 }
 
+
+void inscreveTimeFora(Time *TimesFora[], int tamanho, string nome, Jogador* jogador[]){ 
+    TimesFora[tamanho] = new Time(nome);
+    TimesFora[tamanho] -> insJogador(jogador);
+}
+
+void mostraTimeFora(Time* TimesFora[], int tamanho1){ 
+    for(int i = 0; i < tamanho1; i++){
+        cout << "- " << TimesFora[i]->getNome() << endl;
+    }
+    cout << endl;
+}
+
+void mostraTimesParaInscricao(Time* TimesFora[], int tamanho1){ 
+    for(int i = 0; i < tamanho1; i++){
+        cout << "            - "<< TimesFora[i]->getNome() << endl;
+    }
+}
+
 int main() {
 
     Jogador *UFC[] = {
@@ -66,65 +88,77 @@ int main() {
                         new JogadorPivo("Vini", 30, 100, 462, 10, 30, 30), 
                         new JogadorFixo("Deivid", 20, 15, 0, 02, 15, 3), 
                         new JogadorGoleiro("Dionata", 18, 10, 0, 01, 12, 11),
-                        new JogadorReservaPivo ("Yuri", 18, 10, 15, 10, 12, 13),
+                        /*new JogadorReservaPivo ("Yuri", 18, 10, 15, 10, 12, 13),
                         new JogadorReservaGoleiro ("Endel", 18, 10, 0, 01, 12, 11),
-                        new JogadorReservaFixo ("Pedro", 20, 15, 0, 02, 15, 3)
+                        new JogadorReservaFixo ("Pedro", 20, 15, 0, 02, 15, 3)*/
                     };
 
     Jogador *IFCE[] = {
-                           new JogadorPivo("Neymar", 30, 100, 462, 10, 30, 30),
-                           new JogadorPivo("Julio", 30, 100, 462, 10, 30, 30), 
-                           new JogadorPivo("Matias", 30, 100, 462, 10, 30, 30),
-                           new JogadorFixo("Marquinhos", 28, 30, 384, 04, 25, 25),
-                           new JogadorGoleiro("Alisson", 30, 10, 1, 01, 20, 20),
-                           new JogadorReservaPivo ("Samuel", 18, 10, 15, 10, 12, 13),
-                           new JogadorReservaGoleiro ("Carlos", 18, 10, 0, 01, 12, 11),
-                           new JogadorReservaFixo ("Thiago", 20, 15, 0, 02, 15, 3)
+                        new JogadorPivo("Neymar", 30, 100, 462, 10, 30, 30),
+                        new JogadorPivo("Julio", 30, 100, 462, 10, 30, 30), 
+                        new JogadorPivo("Matias", 30, 100, 462, 10, 30, 30),
+                        new JogadorFixo("Marquinhos", 28, 30, 384, 04, 25, 25),
+                        new JogadorGoleiro("Alisson", 30, 10, 1, 01, 20, 20),
+                        /*new JogadorReservaPivo ("Samuel", 18, 10, 15, 10, 12, 13),
+                        new JogadorReservaGoleiro ("Carlos", 18, 10, 0, 01, 12, 11),
+                        new JogadorReservaFixo ("Thiago", 20, 15, 0, 02, 15, 3)*/
                         };
 
     Jogador *UECE[] = {
-                            new JogadorPivo("Alberto", 21, 50, 200, 10, 20, 20), 
-                            new JogadorPivo("Riquelme", 30, 100, 462, 10, 30, 30), 
-                            new JogadorPivo("Enzo", 30, 100, 462, 10, 30, 30),
-                            new JogadorFixo("Gil", 35, 13, 75, 2, 15, 15), 
-                            new JogadorGoleiro("Cassio", 35, 10, 10, 1, 15, 15),
-                            new JogadorReservaPivo ("Rafa", 18, 10, 15, 10, 12, 13),
-                            new JogadorReservaGoleiro ("Joao", 18, 10, 0, 1, 12, 11),
-                            new JogadorReservaFixo ("Antonio", 20, 15, 0, 2, 15, 3)
+                        new JogadorPivo("Alberto", 21, 50, 200, 10, 20, 20), 
+                        new JogadorPivo("Riquelme", 30, 100, 462, 10, 30, 30), 
+                        new JogadorPivo("Enzo", 30, 100, 462, 10, 30, 30),
+                        new JogadorFixo("Gil", 35, 13, 75, 2, 15, 15), 
+                        new JogadorGoleiro("Cassio", 35, 10, 10, 1, 15, 15),
+                        /*new JogadorReservaPivo("Rafa", 18, 10, 15, 10, 12, 13),
+                        new JogadorReservaGoleiro("Joao", 18, 10, 0, 1, 12, 11),
+                        new JogadorReservaFixo("Antonio", 20, 15, 0, 2, 15, 3)*/
                         };
+
     Jogador *CISNE[] = {
-                            new JogadorPivo("Natanael", 21, 50, 200, 10, 20, 20), 
-                            new JogadorPivo("Felipe", 30, 100, 462, 10, 30, 30), 
-                            new JogadorPivo("Kaua", 30, 100, 462, 10, 30, 30),
-                            new JogadorFixo("Eduardo", 35, 13, 75, 2, 15, 15), 
-                            new JogadorGoleiro("Thomaz", 35, 10, 10, 1, 15, 15),
-                            new JogadorReservaPivo ("Jeffin", 18, 10, 15, 10, 12, 13),
-                            new JogadorReservaGoleiro ("Jhonata", 18, 10, 0, 1, 12, 11),
-                            new JogadorReservaFixo ("Henrique", 20, 15, 0, 2, 15, 3)
+                        new JogadorPivo("Natanael", 21, 50, 200, 10, 20, 20), 
+                        new JogadorPivo("Felipe", 30, 100, 462, 10, 30, 30), 
+                        new JogadorPivo("Kaua", 30, 100, 462, 10, 30, 30),
+                        new JogadorFixo("Eduardo", 35, 13, 75, 2, 15, 15), 
+                        new JogadorGoleiro("Thomaz", 35, 10, 10, 1, 15, 15),
+                        /*new JogadorReservaPivo ("Jeffin", 18, 10, 15, 10, 12, 13),
+                        new JogadorReservaGoleiro ("Jhonata", 18, 10, 0, 1, 12, 11),
+                        new JogadorReservaFixo ("Henrique", 20, 15, 0, 2, 15, 3)*/
                         };
+
     Jogador *ESTACIO[] = {
-                            new JogadorPivo("Pretin", 21, 50, 200, 10, 20, 20), 
-                            new JogadorPivo("Negao", 30, 100, 462, 10, 30, 30), 
-                            new JogadorPivo("Arthur", 30, 100, 462, 10, 30, 30),
-                            new JogadorFixo("Marcelo", 35, 13, 75, 2, 15, 15), 
-                            new JogadorGoleiro("Gabriel", 35, 10, 10, 1, 15, 15),
-                            new JogadorReservaPivo ("Lucas", 18, 10, 15, 10, 12, 13),
-                            new JogadorReservaGoleiro ("Luan", 18, 10, 0, 1, 12, 11),
-                            new JogadorReservaFixo ("David", 20, 15, 0, 2, 15, 3)
+                        new JogadorPivo("Pretin", 21, 50, 200, 10, 20, 20), 
+                        new JogadorPivo("Negao", 30, 100, 462, 10, 30, 30), 
+                        new JogadorPivo("Arthur", 30, 100, 462, 10, 30, 30),
+                        new JogadorFixo("Marcelo", 35, 13, 75, 2, 15, 15), 
+                        new JogadorGoleiro("Gabriel", 35, 10, 10, 1, 15, 15),
+                        /*new JogadorReservaPivo ("Lucas", 18, 10, 15, 10, 12, 13),
+                        new JogadorReservaGoleiro ("Luan", 18, 10, 0, 1, 12, 11),
+                        new JogadorReservaFixo ("David", 20, 15, 0, 2, 15, 3)*/
                         };
+
     Jogador *CATOLICA[] = {
-                            new JogadorPivo("Salomao", 21, 50, 200, 10, 20, 20), 
-                            new JogadorPivo("Israel", 30, 100, 462, 10, 30, 30), 
-                            new JogadorPivo("Ezequiel", 30, 100, 462, 10, 30, 30),
-                            new JogadorFixo("Moises", 35, 13, 75, 2, 15, 15), 
-                            new JogadorGoleiro("Josue", 35, 10, 10, 1, 15, 15),
-                            new JogadorReservaPivo ("Abraao", 18, 10, 15, 10, 12, 13),
-                            new JogadorReservaGoleiro ("Isaque", 18, 10, 0, 1, 12, 11),
-                            new JogadorReservaFixo ("Ismael", 20, 15, 0, 2, 15, 3)
+                        new JogadorPivo("Salomao", 21, 50, 200, 10, 20, 20), 
+                        new JogadorPivo("Israel", 30, 100, 462, 10, 30, 30), 
+                        new JogadorPivo("Ezequiel", 30, 100, 462, 10, 30, 30),
+                        new JogadorFixo("Moises", 35, 13, 75, 2, 15, 15), 
+                        new JogadorGoleiro("Josue", 35, 10, 10, 1, 15, 15),
+                        /*new JogadorReservaPivo ("Abraao", 18, 10, 15, 10, 12, 13),
+                        new JogadorReservaGoleiro ("Isaque", 18, 10, 0, 1, 12, 11),
+                        new JogadorReservaFixo ("Ismael", 20, 15, 0, 2, 15, 3)*/
                         };
 
     Time *Campeonato[6];
     int tamanho = 0;
+
+    Time *TimesFora[6];
+    int tamanhoFora = 0;
+
+    int dia = 0;
+    int mes = 0;   
+    int ano = 0;
+
+    
 
     do{
         //Menu principal 
@@ -138,6 +172,7 @@ int main() {
         cout << "|   (3) Substituir um time do campeonato        |" << endl;
         cout << "|   (4) Para iniciar a partida                  |" << endl;
         cout << "|   (5) Menu dos jogadores                      |" << endl;
+        cout << "|   (6) Exibir o historico de partidas          |" << endl;
         cout << "|   (10) Para finalizar o sistema               |" << endl;
         cout << "|                                               |" << endl;
         cout << "=================================================" << endl;
@@ -145,7 +180,6 @@ int main() {
 
         string opcao;
         cout << "Digite a opcao desejada: ";
-
         cin >> opcao;
         
         if(opcao != "1" && opcao != "2" && opcao != "3" && opcao != "4" && opcao != "5" && opcao != "6" && opcao != "10") {
@@ -154,25 +188,99 @@ int main() {
         }
 
         else {
+            //OPÇÃO 1 DO MENU PRINCIPAL
             if (opcao == "1") {
                 system("cls");
-                cout << endl;
+                int contUFC = 0;
+                int contIFCE = 0;
+                int contUECE = 0;
+                int contCISNE = 0;
+                int contESTACIO = 0;
+                int contCATOLICA = 0;
+
+                for(int i = 0; i < tamanho; i++){
+                    if(Campeonato[i] -> getNome() == "UFC" || Campeonato[i] -> getNome() == "ufc" || Campeonato[i] -> getNome() == "Ufc"){
+                        contUFC++;
+                    }
+                }
+
+                for(int i = 0; i < tamanho; i++){
+                    if(Campeonato[i] -> getNome() == "IFCE" || Campeonato[i] -> getNome() == "ifce" || Campeonato[i] -> getNome() == "Ifce"){
+                        contIFCE++;
+                    }
+                }
+
+                for(int i = 0; i < tamanho; i++){
+                    if(Campeonato[i] -> getNome() == "UECE" || Campeonato[i] -> getNome() == "uece" || Campeonato[i] -> getNome() == "Uece"){
+                        contUECE++;
+                    }
+                }
+
+                for(int i = 0; i < tamanho; i++){
+                    if(Campeonato[i] -> getNome() == "CISNE" || Campeonato[i] -> getNome() == "cisne" || Campeonato[i] -> getNome() == "Cisne"){
+                        contCISNE++;
+                    }
+                }
+
+                for(int i = 0; i < tamanho; i++){
+                    if(Campeonato[i] -> getNome() == "ESTACIO" || Campeonato[i] -> getNome() == "estacio" || Campeonato[i] -> getNome() == "Estacio"){
+                        contESTACIO++;
+                    }
+                }
+
+                for(int i = 0; i < tamanho; i++){
+                    if(Campeonato[i] -> getNome() == "CATOLICA" || Campeonato[i] -> getNome() == "catolica" || Campeonato[i] -> getNome() == "Catolica"){
+                        contCATOLICA++;
+                    }
+                }
+
+                if(contUFC < 1){
+                    inscreveTimeFora(TimesFora, tamanhoFora, "UFC", UFC);
+                    tamanhoFora++;
+                }
+
+                if(contIFCE < 1){
+                    inscreveTimeFora(TimesFora, tamanhoFora, "IFCE", IFCE);
+                    tamanhoFora++;
+                }
+
+                if(contUECE < 1){
+                    inscreveTimeFora(TimesFora, tamanhoFora, "UECE", UECE);
+                    tamanhoFora++;
+                }
+
+                if(contCISNE < 1){
+                    inscreveTimeFora(TimesFora, tamanhoFora, "CISNE", CISNE);
+                    tamanhoFora++;
+                }
+
+                if(contESTACIO < 1){
+                    inscreveTimeFora(TimesFora, tamanhoFora, "ESTACIO", ESTACIO);
+                    tamanhoFora++;
+                }
+
+                if(contCATOLICA < 1){
+                    inscreveTimeFora(TimesFora, tamanhoFora, "CATOLICA", CATOLICA);
+                    tamanhoFora++;
+                }
+
                 cout << "=================================" << endl;
                 cout << "|  BEM-VINDO AO MENU DOS TIMES  | " << endl;
                 cout << "=================================" << endl;
-                cout << "|       TIMES DISPONIVEIS       |" << endl;
-                cout << "|          - UFC                |" << endl;
-                cout << "|          - IFCE               |" << endl;
-                cout << "|          - UECE               |" << endl;
-                cout << "|          - CISNE              |" << endl;
-                cout << "|          - ESTACIO            |" << endl;
-                cout << "|          - CATOLICA           |" << endl;  
-                cout << "=================================" << endl;
+                cout << "        TIMES DISPONIVEIS        " << endl;
+                mostraTimesParaInscricao(TimesFora, tamanhoFora);
                 cout << endl;
+
                 string NomeTime;
                 cout << "Qual time deseja inscrever? " << endl;
                 cin >> NomeTime;
-                if (NomeTime != "UFC" && NomeTime != "IFCE" && NomeTime != "UECE" && NomeTime != "CISNE" && NomeTime != "ESTACIO" && NomeTime != "CATOLICA") {
+
+                if((NomeTime != "UFC" && NomeTime != "ufc" && NomeTime != "Ufc") && 
+                (NomeTime != "IFCE" && NomeTime != "ifce" && NomeTime != "Ifce") && 
+                (NomeTime != "UECE" && NomeTime != "uece" && NomeTime != "Uece") && 
+                (NomeTime != "CISNE" && NomeTime != "cisne" && NomeTime != "Cisne") && 
+                (NomeTime != "ESTACIO" && NomeTime != "estacio" && NomeTime != "Estacio") && 
+                (NomeTime != "CATOLICA" && NomeTime != "catolica" && NomeTime != "Catolica")) {
                     system("cls");
                     try {
                         cout << "Times invalidos, digite um dos times do menu dos times!!" << endl;
@@ -180,86 +288,185 @@ int main() {
                     catch (const char *msg) {
                         cerr << msg << endl;
                     }
+                    tamanhoFora = 0;
                 }
+
                 else {
-                    if(NomeTime == "UFC") { //Chamar uma função para colocar o time dentro do campeonato
+                    if(NomeTime == "UFC" || NomeTime == "ufc" || NomeTime == "Ufc") { //Chamar uma função para colocar o time dentro do campeonato
                         inscreveTime(Campeonato, tamanho, NomeTime, UFC);
                     }
-                    else if(NomeTime == "IFCE"){ //Chamar uma função para colocar o time dentro do campeonato
+                    else if(NomeTime == "IFCE" || NomeTime == "ifce" || NomeTime == "Ifce"){ //Chamar uma função para colocar o time dentro do campeonato
                         inscreveTime(Campeonato, tamanho, NomeTime, IFCE);
                     }
-                    else if(NomeTime == "UECE"){ //Chamar uma função para colocar o time dentro do campeonato
+                    else if(NomeTime == "UECE" || NomeTime == "uece" || NomeTime == "Uece"){ //Chamar uma função para colocar o time dentro do campeonato
                         inscreveTime(Campeonato, tamanho, NomeTime, UECE);
                     }
-                    else if (NomeTime == "CISNE") {
+                    else if (NomeTime == "CISNE" || NomeTime == "cisne" || NomeTime == "Cisne") {
                         inscreveTime(Campeonato, tamanho, NomeTime, CISNE);
                         //cerr << "INSTITUICAO FALIDA, NAO FOI POSSIVEL CADASTRAR ESSE TIME!" << endl;
                     }
-                    else if(NomeTime == "ESTACIO") {
+                    else if(NomeTime == "ESTACIO" || NomeTime == "estacio" || NomeTime == "Estacio") {
                         inscreveTime(Campeonato, tamanho, NomeTime, ESTACIO);
                     }
-                    else if (NomeTime == "CATOLICA") {
+                    else if (NomeTime == "CATOLICA" || NomeTime == "catolica" || NomeTime == "Catolica") {
                         inscreveTime(Campeonato, tamanho, NomeTime, CATOLICA);
                     }
+                    //Quantidade de times no campeonato 
                     if(tamanho < 6) {
                         tamanho++;
                     }
+                    tamanhoFora = 0;
                 }
+                
             }
 
+            //OPÇÃO 2 DO MENU PRINCIPAL
             else if(opcao == "2") {
-                system("cls");
-                cout << endl;
-                cout << "== TIMES INSCRITOS NO CAMPEONATO ==" << endl;
-                        mostraTime(Campeonato, tamanho);
-            }
-
-            else if(opcao == "3") {
                 if (tamanho == 0 || tamanho == 1) {
                     try {
                         system("cls");
-                        cout << "Nao ha times suficientes para fazer a substituicao!!" << endl;
+                        cout << "Nao ha times inscritos" << endl;
                     }
                     catch (const char *msg) {
                         cerr << msg << endl;
                     }
                 }
+                else{
+                system("cls");
+                cout << endl;
+                cout << "== TIMES INSCRITOS NO CAMPEONATO ==" << endl;
+                        mostraTime(Campeonato, tamanho);
+                }
+            }
+
+            //OPÇÃO 3 DO MENU PRINCIPAL
+            else if(opcao == "3") {
+                if (tamanho == 0 || tamanho == 1) {
+                    try {
+                        system("cls");
+                        cout << "Nao ha times suficientes para fazer a substituicao!" << endl;
+                    }
+                    catch (const char *msg) {
+                        cerr << msg << endl;
+                    }
+                }
+
                 else {
                     string nomeTime;
                     string nomeTimeNovo;
+                    int contUFC = 0;
+                    int contIFCE = 0;
+                    int contUECE = 0;
+                    int contCISNE = 0;
+                    int contESTACIO = 0;
+                    int contCATOLICA = 0;
 
+                    for(int i = 0; i < tamanho; i++){
+                        if(Campeonato[i] -> getNome() == "UFC" || Campeonato[i] -> getNome() == "ufc" || Campeonato[i] -> getNome() == "Ufc"){
+                            contUFC++;
+                        }
+                    }
+
+                    for(int i = 0; i < tamanho; i++){
+                        if(Campeonato[i] -> getNome() == "IFCE" || Campeonato[i] -> getNome() == "ifce" || Campeonato[i] -> getNome() == "Ifce"){
+                            contIFCE++;
+                        }
+                    }
+
+                    for(int i = 0; i < tamanho; i++){
+                        if(Campeonato[i] -> getNome() == "UECE" || Campeonato[i] -> getNome() == "uece" || Campeonato[i] -> getNome() == "Uece"){
+                            contUECE++;
+                        }
+                    }
+
+                    for(int i = 0; i < tamanho; i++){
+                        if(Campeonato[i] -> getNome() == "CISNE" || Campeonato[i] -> getNome() == "cisne" || Campeonato[i] -> getNome() == "Cisne"){
+                            contCISNE++;
+                        }
+                    }
+
+                    for(int i = 0; i < tamanho; i++){
+                        if(Campeonato[i] -> getNome() == "ESTACIO" || Campeonato[i] -> getNome() == "estacio" || Campeonato[i] -> getNome() == "Estacio"){
+                            contESTACIO++;
+                        }
+                    }
+
+                    for(int i = 0; i < tamanho; i++){
+                        if(Campeonato[i] -> getNome() == "CATOLICA" || Campeonato[i] -> getNome() == "catolica" || Campeonato[i] -> getNome() == "Catolica"){
+                            contCATOLICA++;
+                        }
+                    }
+
+                    if(contUFC < 1){
+                        inscreveTimeFora(TimesFora, tamanhoFora, "UFC", UFC);
+                        tamanhoFora++;
+                    }
+
+                    if(contIFCE < 1){
+                        inscreveTimeFora(TimesFora, tamanhoFora, "IFCE", IFCE);
+                        tamanhoFora++;
+                    }
+
+                    if(contUECE < 1){
+                        inscreveTimeFora(TimesFora, tamanhoFora, "UECE", UECE);
+                        tamanhoFora++;
+                    }
+
+                    if(contCISNE < 1){
+                        inscreveTimeFora(TimesFora, tamanhoFora, "CISNE", CISNE);
+                        tamanhoFora++;
+                    }
+
+                    if(contESTACIO < 1){
+                        inscreveTimeFora(TimesFora, tamanhoFora, "ESTACIO", ESTACIO);
+                        tamanhoFora++;
+                    }
+
+                    if(contCATOLICA < 1){
+                        inscreveTimeFora(TimesFora, tamanhoFora, "CATOLICA", CATOLICA);
+                        tamanhoFora++;
+                    }
+
+                    system("cls");
+                    
                     cout << "== TIMES INSCRITOS NO CAMPEONATO ==" << endl;
                             mostraTime(Campeonato, tamanho);
                     cout << "===================================";
                     cout << endl;
 
+
+                    cout << "== TIMES DISPONIVEIS PARA SUBSTITUICAO ==" << endl;
+                            mostraTimeFora(TimesFora, tamanhoFora);
+                    cout << "===================================";
+                    cout << endl;
+
                     cout << "Qual time voce deseja remover do campeonato" << endl;
                     cin >> nomeTime;
-                    system("cls");
 
                     cout << "Qual time voce deseja colocar no campeonato" << endl;
                     cin >> nomeTimeNovo;
                     system("cls");
 
-                    if(nomeTimeNovo == "UFC"){ //Chamar uma função para colocar o time dentro do campeonato
+                    if(nomeTimeNovo == "UFC" || nomeTimeNovo == "ufc" || nomeTimeNovo == "Ufc"){ //Chamar uma função para colocar o time dentro do campeonato
                         substituirTime(Campeonato, tamanho, nomeTime, nomeTimeNovo, UFC);
                     }
-                    else if(nomeTimeNovo == "IFCE"){ //Chamar uma função para colocar o time dentro do campeonato
+                    else if(nomeTimeNovo == "IFCE" || nomeTimeNovo == "ifce" || nomeTimeNovo == "Ifce"){ //Chamar uma função para colocar o time dentro do campeonato
                         substituirTime(Campeonato, tamanho, nomeTime, nomeTimeNovo, IFCE);
                     }
-                    else if(nomeTimeNovo == "UECE"){ //Chamar uma função para colocar o time dentro do campeonato
+                    else if(nomeTimeNovo == "UECE" || nomeTimeNovo == "uece" || nomeTimeNovo == "Uece"){ //Chamar uma função para colocar o time dentro do campeonato
                         substituirTime(Campeonato, tamanho, nomeTime, nomeTimeNovo, UECE);
                     }
-                    else if (nomeTimeNovo == "CISNE") {
+                    else if (nomeTimeNovo == "CISNE" || nomeTimeNovo == "cisne" || nomeTimeNovo == "Cisne") {
                         substituirTime(Campeonato, tamanho, nomeTime, nomeTimeNovo, CISNE);
                         //cerr << "INSTITUICAO FALIDA!" << endl;
                     }
-                    else if(nomeTimeNovo == "ESTACIO") {
+                    else if(nomeTimeNovo == "ESTACIO" || nomeTimeNovo == "estacio" || nomeTimeNovo == "Estacio") {
                         substituirTime(Campeonato, tamanho, nomeTime, nomeTimeNovo, ESTACIO);
                     }
-                    else if (nomeTimeNovo == "CATOLICA") {
+                    else if (nomeTimeNovo == "CATOLICA" || nomeTimeNovo == "catolica" || nomeTimeNovo == "Catolica") {
                         substituirTime(Campeonato, tamanho, nomeTime, nomeTimeNovo, CATOLICA);
                     }
+
                     else {
                         system("cls");
                         try {
@@ -269,6 +476,7 @@ int main() {
                             cerr << msg << endl;
                         }
                     }
+                    tamanhoFora = 0;
                 }
             }
 
@@ -284,9 +492,11 @@ int main() {
                     }
                 }
                 else {
+                    ofstream arquivoS;
+
                     cout << "Digite a data desta partida (no formato dd mm aa): ";
-                    int dia, mes, ano;
                     cin >> dia >> mes >> ano;
+                    Date *data = new Date(dia, mes, ano);
                     system("cls");
                     cout << "== TIMES INSCRITOS NO CAMPEONATO ==" << endl;
                         mostraTime(Campeonato, tamanho);
@@ -382,24 +592,19 @@ int main() {
                                 cin >> Nome;
                                 system("cls");
                             
-                                /*if(Campeonato[ProcuraCasa]->getGols() == 0 || Campeonato[ProcuraVisitante]->getGols() == 0) {
-                                    cout << "== PLACAR DA PARTIDA ==" << endl;
-                                    cout << Campeonato[ProcuraCasa]->getNome() << " 0" << " X " << "0 " << Campeonato[ProcuraVisitante]->getNome() << endl;
-                                    cout << endl;
-                                }*/
-                                    if(Campeonato[ProcuraCasa]->getNome() == Nome || Campeonato[ProcuraVisitante]->getNome() == Nome) {
+                                if(Campeonato[ProcuraCasa]->getNome() == Nome || Campeonato[ProcuraVisitante]->getNome() == Nome) {
                                     system("cls");
                                     cout << "== PLACAR DA PARTIDA ==" << endl;
                                     cout << partida->getPlacar() << endl;
+                                }
+                                else {
+                                    try {
+                                        throw ("Times invalidos");
                                     }
-                                    else {
-                                        try {
-                                            throw ("Times invalidos");
-                                        }
-                                        catch(const char * msg) {
-                                            cerr << "Error: " << msg << endl;
-                                        }
+                                    catch(const char * msg) {
+                                        cerr << "Error: " << msg << endl;
                                     }
+                                }
                                 
                             }
                             else if (op == "4"){
@@ -420,6 +625,12 @@ int main() {
                             }
 
                             else if (op == "5"){
+                                arquivoS.open("partidas.txt", ios::app);
+                                
+                                arquivoS << partida -> Data();
+                                arquivoS << partida -> getPlacar();
+                                arquivoS << "\n";
+                                arquivoS << "\n";
 
                                 cout << "== RESULTADO DA PARTIDA ==" << endl;
                                 cout << endl;
@@ -438,6 +649,7 @@ int main() {
                                     aux1 -> somaEmpates();
                                     aux2 -> somaEmpates();
                                 }
+                                arquivoS.close();
                                 delete partida;
                                 break;
                             }
@@ -546,7 +758,13 @@ int main() {
                                         cout << "================================================" << endl;
                                         cout << "          NUMERO DE GOLS REALIZADOS             " << endl;
                                         cout << endl;
-                                        cout << "O jogador " << nomeJog << " realizou " << Campeonato[i]->getJogador(nomeJog)->getGols() << " gols" << endl;
+                                        if(Campeonato[i]->getJogador(nomeJog)->getGols() == 1){
+                                            cout << "O jogador " << nomeJog << " realizou " << Campeonato[i]->getJogador(nomeJog)->getGols() << " gol" << endl;
+                                        }
+                                        else{
+                                            cout << "O jogador " << nomeJog << " realizou " << Campeonato[i]->getJogador(nomeJog)->getGols() << " gols" << endl;
+                                        }
+                                        
                                         break;
                                     }
                                     else{
@@ -571,6 +789,28 @@ int main() {
                 } while (true);
             }
 
+            else if(opcao == "6"){
+                system("cls");
+                if(dia == 0 && mes == 0 && ano == 0){
+                    cout << "Nao ha historico de partidas";
+                }
+                else{
+                    cout << "HISTORICO DAS PARTIDAS" << endl;
+                    ifstream arquivoE;
+                    string linha;
+                    arquivoE.open("partidas.txt");
+                    if(arquivoE.is_open()){
+                        while(getline(arquivoE,linha)){
+                            cout << linha << endl;
+                        }
+                        arquivoE.close();
+                    }
+                    else{
+                        cout << "Nao foi possivel abrir" << endl;
+                    }
+                }
+            }
+
             //OPÇÃO 10 DO MENU PRINCIPAL
             else if (opcao == "10") {
                 system("cls");
@@ -580,7 +820,6 @@ int main() {
                 cout << "===================================" << endl;
                 cout << "|         - Jeferson Aires        |" << endl;
                 cout << "|         - Dionata Araujo        |" << endl;
-                cout << "|         - Kaynan Pereira        |" << endl;
                 cout << "===================================" << endl;
                 cout << "|       PROFESSOR ORIENTADOR:     |" << endl;
                 cout << "|         Thiago Werlley          |" << endl;

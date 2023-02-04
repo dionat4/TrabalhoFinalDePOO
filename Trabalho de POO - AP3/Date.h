@@ -10,5 +10,10 @@ private:
 public:
     Date(int Dia, int Mes, int Ano);
     std::string toStringPrint();
+
+    int getDia();
+    int getMes();
+    int getAno();
+
 };   
 #endif

@@ -39,7 +39,7 @@ string Time::getResultados() {
 
 void Time::imprimeNome() {
     cout << "JOGADORES DO TIME" << endl;
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 5; i++) {
         Jogadores[i]->Jogador::NomeJogadorTime();
     }
 }
@@ -62,32 +62,15 @@ void Time::imprimeJogadores() {
         Jogadores[i]->Jogador::printJogador();
         cout << endl;
     }
-    cout << "==================================" << endl;
-    cout << "Reserva Pivo: " << endl;
-    for (int i = 5; i < 6; i++) {
-        Jogadores[i]->Jogador::printJogador();
-        cout << endl;
-    }
-    cout << "==================================" << endl;
-    cout << "Reserva Goleiro: " << endl;
-    for (int i = 6; i < 7; i++) {
-        Jogadores[i]->Jogador::printJogador();
-        cout << endl;
-    }
-    cout << "==================================" << endl;
-    cout << "Reserva Fixo: " << endl;
-    for (int i = 7; i < 8; i++) {
-        Jogadores[i]->Jogador::printJogador();
-    }
 }
-void Time::insJogador(Jogador *Time[8]) {
-    for (int i = 0; i < 8; i++) {
+void Time::insJogador(Jogador *Time[5]) {
+    for (int i = 0; i < 5; i++) {
         Jogadores[i] = Time[i];
     }
 }
 
 Jogador* Time::getJogador(string nome){
-    for(int i = 0; i < 8; i++){
+    for(int i = 0; i < 5; i++){
         if(Jogadores[i] -> getnomeJogador() == nome){
             return Jogadores[i];
         }
@@ -96,7 +79,7 @@ Jogador* Time::getJogador(string nome){
 }
 
 bool Time::getJogador1(string nome){
-    for(int i = 0; i < 8; i++){
+    for(int i = 0; i < 5; i++){
         if(Jogadores[i] -> getnomeJogador() == nome){
             return true;
         }
