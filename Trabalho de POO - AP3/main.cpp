@@ -61,12 +61,13 @@ void mostraTime(Time* Campeonato[], int tamanho){
     cout << endl;
 }
 
-
+//Essa função coloca os times que não foram inscritos em outro vetor
 void inscreveTimeFora(Time *TimesFora[], int tamanho, string nome, Jogador* jogador[]){ 
     TimesFora[tamanho] = new Time(nome);
     TimesFora[tamanho] -> insJogador(jogador);
 }
 
+//Essa função mostra os time do vetor TimesFora[]
 void mostraTimeFora(Time* TimesFora[], int tamanho1){ 
     for(int i = 0; i < tamanho1; i++){
         cout << "- " << TimesFora[i]->getNome() << endl;
@@ -74,6 +75,7 @@ void mostraTimeFora(Time* TimesFora[], int tamanho1){
     cout << endl;
 }
 
+//Essa função mostra os times para sereme inscritos 
 void mostraTimesParaInscricao(Time* TimesFora[], int tamanho1){ 
     for(int i = 0; i < tamanho1; i++){
         cout << "            - "<< TimesFora[i]->getNome() << endl;
@@ -88,9 +90,6 @@ int main() {
                         new JogadorPivo("Vini", 30, 100, 462, 10, 30, 30), 
                         new JogadorFixo("Deivid", 20, 15, 0, 02, 15, 3), 
                         new JogadorGoleiro("Dionata", 18, 10, 0, 01, 12, 11),
-                        /*new JogadorReservaPivo ("Yuri", 18, 10, 15, 10, 12, 13),
-                        new JogadorReservaGoleiro ("Endel", 18, 10, 0, 01, 12, 11),
-                        new JogadorReservaFixo ("Pedro", 20, 15, 0, 02, 15, 3)*/
                     };
 
     Jogador *IFCE[] = {
@@ -99,9 +98,6 @@ int main() {
                         new JogadorPivo("Matias", 30, 100, 462, 10, 30, 30),
                         new JogadorFixo("Marquinhos", 28, 30, 384, 04, 25, 25),
                         new JogadorGoleiro("Alisson", 30, 10, 1, 01, 20, 20),
-                        /*new JogadorReservaPivo ("Samuel", 18, 10, 15, 10, 12, 13),
-                        new JogadorReservaGoleiro ("Carlos", 18, 10, 0, 01, 12, 11),
-                        new JogadorReservaFixo ("Thiago", 20, 15, 0, 02, 15, 3)*/
                         };
 
     Jogador *UECE[] = {
@@ -110,9 +106,6 @@ int main() {
                         new JogadorPivo("Enzo", 30, 100, 462, 10, 30, 30),
                         new JogadorFixo("Gil", 35, 13, 75, 2, 15, 15), 
                         new JogadorGoleiro("Cassio", 35, 10, 10, 1, 15, 15),
-                        /*new JogadorReservaPivo("Rafa", 18, 10, 15, 10, 12, 13),
-                        new JogadorReservaGoleiro("Joao", 18, 10, 0, 1, 12, 11),
-                        new JogadorReservaFixo("Antonio", 20, 15, 0, 2, 15, 3)*/
                         };
 
     Jogador *CISNE[] = {
@@ -121,9 +114,6 @@ int main() {
                         new JogadorPivo("Kaua", 30, 100, 462, 10, 30, 30),
                         new JogadorFixo("Eduardo", 35, 13, 75, 2, 15, 15), 
                         new JogadorGoleiro("Thomaz", 35, 10, 10, 1, 15, 15),
-                        /*new JogadorReservaPivo ("Jeffin", 18, 10, 15, 10, 12, 13),
-                        new JogadorReservaGoleiro ("Jhonata", 18, 10, 0, 1, 12, 11),
-                        new JogadorReservaFixo ("Henrique", 20, 15, 0, 2, 15, 3)*/
                         };
 
     Jogador *ESTACIO[] = {
@@ -132,9 +122,6 @@ int main() {
                         new JogadorPivo("Arthur", 30, 100, 462, 10, 30, 30),
                         new JogadorFixo("Marcelo", 35, 13, 75, 2, 15, 15), 
                         new JogadorGoleiro("Gabriel", 35, 10, 10, 1, 15, 15),
-                        /*new JogadorReservaPivo ("Lucas", 18, 10, 15, 10, 12, 13),
-                        new JogadorReservaGoleiro ("Luan", 18, 10, 0, 1, 12, 11),
-                        new JogadorReservaFixo ("David", 20, 15, 0, 2, 15, 3)*/
                         };
 
     Jogador *CATOLICA[] = {
@@ -143,9 +130,6 @@ int main() {
                         new JogadorPivo("Ezequiel", 30, 100, 462, 10, 30, 30),
                         new JogadorFixo("Moises", 35, 13, 75, 2, 15, 15), 
                         new JogadorGoleiro("Josue", 35, 10, 10, 1, 15, 15),
-                        /*new JogadorReservaPivo ("Abraao", 18, 10, 15, 10, 12, 13),
-                        new JogadorReservaGoleiro ("Isaque", 18, 10, 0, 1, 12, 11),
-                        new JogadorReservaFixo ("Ismael", 20, 15, 0, 2, 15, 3)*/
                         };
 
     Time *Campeonato[6];
